@@ -42,7 +42,7 @@ public class VeterinarioRepositoryTest {
 
         String nomeEsperado = "marcos oliveira";
 
-        int quantidadeEsperada = 1;
+        int quantidadeEsperada = 0;
 
         List<Veterinario> veterinarioExistentes = repository.findByNome(nomeEsperado);
         int quantidadeExistente = veterinarioExistentes.size();
@@ -56,7 +56,7 @@ public class VeterinarioRepositoryTest {
     public void testeBuscaDeVeterinarioExistentePeloNomeMaiusculoSemCaseSensentiveDeveFalhar(){
 
         String nomeEsperado = "MARCOS OLIVEIRA";
-        int quantidadeEsperada = 1;
+        int quantidadeEsperada = 0;
 
         List<Veterinario> veterinarioExistentes = repository.findByNome(nomeEsperado);
         int quantidadeExistente = veterinarioExistentes.size();
@@ -70,7 +70,7 @@ public class VeterinarioRepositoryTest {
     public void testeBuscaDeVeterinarioNãoExistenteComCaseSensitiveDeveFalhar(){
 
         String nomeEsperado = "giovanny morais";
-        int quantidadeEsperada = 1;
+        int quantidadeEsperada = 0;
 
         List<Veterinario> veterinarioExistentes = repository.findByNome(nomeEsperado);
         int quantidadeExistente = veterinarioExistentes.size();
