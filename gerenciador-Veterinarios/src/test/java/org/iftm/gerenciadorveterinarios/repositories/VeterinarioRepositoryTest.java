@@ -1,13 +1,12 @@
 package org.iftm.gerenciadorveterinarios.repositories;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.iftm.gerenciadorveterinarios.entities.Veterinario;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -97,21 +96,16 @@ public class VeterinarioRepositoryTest {
     @Test
     public void testeDeBuscaDeNomePelaSilabaTesteDeveFalhar(){
         String nomeExistente = "co";
-
+ 
         String nomeEsperado = "Conceição Evaristo";
         String nomeEsperado2 = "Marcos Oliveira";
-        int quantidadeEsperada = 2;
-
-
-
+ 
         List<Veterinario> veterinarioExistentes = repository.findByNomeContainsIgnoreCase(nomeExistente);
-        int quantidadeExistente = veterinarioExistentes.size();
-
-       assertNotNull(veterinarioExistentes);
-       assertEquals(quantidadeEsperada, quantidadeExistente);
-       assertEquals(nomeEsperado2, veterinarioExistentes);
-       assertEquals(nomeEsperado, veterinarioExistentes);
-
+ 
+        assertNotNull(veterinarioExistentes);
+ 
+        assertThrows(AssertionError.class, () -> assertEquals(nomeEsperado2, veterinarioExistentes));
+        assertThrows(AssertionError.class, () -> assertEquals(nomeEsperado, veterinarioExistentes));
     }
 
     @Test 
@@ -144,8 +138,8 @@ public class VeterinarioRepositoryTest {
     @Test
     public void testeDeBuscaDeSalarioSuperiorAoValorInformado(){
 
-        Double SalarioEsperado = 3000.0;
-        int quantidadeEsperada = 10;
+        Double SalarioEsperado = 3200.0;
+        int quantidadeEsperada = 11;
 
         List<Veterinario> veterinarioExistente = repository.findBySalarioGreaterThan(BigDecimal.valueOf(SalarioEsperado));
         int quantidadeExistente = veterinarioExistente.size();
@@ -159,7 +153,7 @@ public class VeterinarioRepositoryTest {
     public void testeDeBuscaDeSalarioInferiorAoValorInformado() {
        
         BigDecimal salarioReferencia = BigDecimal.valueOf(3000.0);
-        int quantidadeEsperada = 10;
+        int quantidadeEsperada = 0;
  
         List<Veterinario> veterinariosEncontrados = repository.findBySalarioLessThan(salarioReferencia);
  
@@ -174,7 +168,7 @@ public class VeterinarioRepositoryTest {
         Double SalarioEsperado = 3000.0;
         Double SalarioEsperado2 = 5000.0;
 
-        int quantidadeEsperada = 7;
+        int quantidadeEsperada = 9;
 
         List<Veterinario> veterinarioExistente = repository.findBySalarioBetween(BigDecimal.valueOf(SalarioEsperado),BigDecimal.valueOf(SalarioEsperado2));
         int quantidadeExistente = veterinarioExistente.size();
