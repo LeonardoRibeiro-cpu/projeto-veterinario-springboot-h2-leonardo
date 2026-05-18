@@ -38,4 +38,12 @@ public class VeterinarioService {
     public void apagar(Veterinario veterinario){
         repositorio.delete(veterinario);
     }
+
+    @Transactional
+     public void deletar(Integer id) {
+        if(!repositorio.findById(id).isPresent()){
+            throw new RuntimeException("Id inexistente");
+        }
+       repositorio.deleteById(id);
+    }
 }
