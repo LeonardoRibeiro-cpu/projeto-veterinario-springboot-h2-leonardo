@@ -36,5 +36,10 @@ public void concederFerias(Integer id) {
 
     repository.save(funcionario);
 }
+
+public Funcionario buscarPorId(Integer id) {
+    return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+}
     
 }
