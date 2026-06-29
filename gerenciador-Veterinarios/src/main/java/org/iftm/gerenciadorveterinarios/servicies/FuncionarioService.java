@@ -5,16 +5,21 @@
 
 package org.iftm.gerenciadorveterinarios.servicies;
 
+import java.util.List;
 import org.iftm.gerenciadorveterinarios.entities.Funcionario;
 import org.iftm.gerenciadorveterinarios.repositories.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class FuncionarioService {
+public class FuncionarioService {
 
     @Autowired
     private FuncionarioRepository repository;
+
+    public List<Funcionario> ListarTodos(){
+        return repository.findAll();
+    }
 
   public Funcionario salvar(Funcionario funcionarioEntrada) {
 
@@ -41,5 +46,8 @@ public Funcionario buscarPorId(Integer id) {
     return repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
 }
-    
+
+public List<Funcionario> buscarPorNome(String nome) {
+    return repository.findByNomeContainingIgnoreCase(nome);
+}
 }
